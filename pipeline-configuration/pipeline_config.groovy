@@ -8,7 +8,7 @@ libraries {
         testsPath = "${env.WORKSPACE}\\Tests"
         testsResultPath = "${env.WORKSPACE}\\TestResults\\Jenkins\\${env.BUILD_TAG}"
     }
-    node
+    // node
     notification
     resolve_dependencies
 }
