@@ -1,5 +1,5 @@
 @BeforeStep({context.step.equals("build")})
-void call() {
+void call(context) {
     stage('Resolve dependencies: Node') {
         environment {
             NODE_PATH = "${env.WORKSPACE}\\Ubigreen.PerformanceAnalyser.FullWeb\\node_modules"

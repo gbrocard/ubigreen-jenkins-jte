@@ -1,24 +1,22 @@
 void call() {
-    node {
-        stage('Checkout: TFS') {
-            options {
-                timeout(time: 15, unit: 'MINUTES')
-                retry(1)
-            }
-
-            environment {
-                PROJECT = '$/UbigreenProject/UbigreenPerformance'
-                TFS_URL = 'http://tls-ubi-tfs:8080/tfs/UbigreenCollection'
-            }
-
-            checkout([
-                $class: 'TeamFoundationServerScm', 
-                projectPath: '$/UbigreenProject/UbigreenPerformance',
-                credentialsConfigurer: [$class: 'AutomaticCredentialsConfigurer'],
-                serverUrl: 'http://tls-ubi-tfs:8080/tfs/UbigreenCollection', 
-                useOverwrite: true,
-                workspaceName: "Hudson-${env.JOB_NAME}-${NODE_NAME}"
-            ])
+    stage('Checkout: TFS') {
+        options {
+            timeout(time: 15, unit: 'MINUTES')
+            retry(1)
         }
+
+        environment {
+            PROJECT = '$/UbigreenProject/UbigreenPerformance'
+            TFS_URL = 'http://tls-ubi-tfs:8080/tfs/UbigreenCollection'
+        }
+
+        checkout([
+            $class: 'TeamFoundationServerScm', 
+            projectPath: '$/UbigreenProject/UbigreenPerformance',
+            credentialsConfigurer: [$class: 'AutomaticCredentialsConfigurer'],
+            serverUrl: 'http://tls-ubi-tfs:8080/tfs/UbigreenCollection', 
+            useOverwrite: true,
+            workspaceName: "Hudson-${env.JOB_NAME}-${NODE_NAME}"
+        ])
     }
 }
