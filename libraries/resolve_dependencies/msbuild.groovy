@@ -6,7 +6,7 @@ void call(context) {
 
     node {
         stage('Resolve Dependencies: NuGet') {
-            println(env.WORKSPACE)
+            println("env:  " + env.WORKSPACE)
             bat "\"${nugetPath}\" restore \"${projectPath}\" ${sources} -OutputDirectory ${env.WORKSPACE}\\packages"
         }
     }
