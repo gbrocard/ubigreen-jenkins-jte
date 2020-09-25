@@ -1,6 +1,6 @@
 libraries {
     merge = true
-
+    resolve_dependencies
     msbuild {
         nugetPath = 'C:\\Program Files (x86)\\NuGet\\nuget.exe'
         project = "${env.WORKSPACE}\\UbigreenPerformance.sln"
