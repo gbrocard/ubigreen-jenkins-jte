@@ -10,15 +10,13 @@ void call() {
             TFS_URL = 'http://tls-ubi-tfs:8080/tfs/UbigreenCollection'
         }
 
-        steps {
-            checkout([
-                $class: 'TeamFoundationServerScm', 
-                projectPath: '$/UbigreenProject/UbigreenPerformance',
-                credentialsConfigurer: [$class: 'AutomaticCredentialsConfigurer'],
-                serverUrl: 'http://tls-ubi-tfs:8080/tfs/UbigreenCollection', 
-                useOverwrite: true,
-                workspaceName: "Hudson-${env.JOB_NAME}-${NODE_NAME}"
-            ])
-        }
+        checkout([
+            $class: 'TeamFoundationServerScm', 
+            projectPath: '$/UbigreenProject/UbigreenPerformance',
+            credentialsConfigurer: [$class: 'AutomaticCredentialsConfigurer'],
+            serverUrl: 'http://tls-ubi-tfs:8080/tfs/UbigreenCollection', 
+            useOverwrite: true,
+            workspaceName: "Hudson-${env.JOB_NAME}-${NODE_NAME}"
+        ])
     }
 }

@@ -3,8 +3,6 @@ void call() {
         environment {
             PATH = "${env.APPDATA}\\npm;$PATH"
         }
-        steps {
-            bat "\"${env.MSBUILD}\" ${env.WORKSPACE}\\UbigreenPerformance.sln /p:Configuration=${config.buildConfiguration} /p:WarningLevel=0 /m"
-        }
+        bat "\"${env.MSBUILD}\" ${env.WORKSPACE}\\UbigreenPerformance.sln /p:Configuration=${config.buildConfiguration} /p:WarningLevel=0 /m"
     }
 }

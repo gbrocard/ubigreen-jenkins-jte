@@ -35,27 +35,23 @@ void call() {
     String buildConfiguration = config.buildConfiguration;
 
     stage('Unit tests: C#') {
-        steps {
-            script {
-                //list all tests projects and put them in a list
-                def allTestsNames = bat(script: "dir /B \"${testsPath}\"", returnStdout: true).split("\n")
+        //list all tests projects and put them in a list
+        def allTestsNames = bat(script: "dir /B \"${testsPath}\"", returnStdout: true).split("\n")
 
-                //map the projects name with their corresponding DLL
-                def testDllMap = [:]    
-                for(test in allTestsNames) {
-                    def testName = test.trim(); //remove carriage return
-                    def dllLocation = "${testsPath}\\${testName}\\bin\\${buildConfiguration}\\${testName}.dll"
-                    testDllMap[testName] = dllLocation
-                }
+        //map the projects name with their corresponding DLL
+        def testDllMap = [:]    
+        for(test in allTestsNames) {
+            def testName = test.trim(); //remove carriage return
+            def dllLocation = "${testsPath}\\${testName}\\bin\\${buildConfiguration}\\${testName}.dll"
+            testDllMap[testName] = dllLocation
+        }
 
-                // execute all tests
-                dir(testsResultPath) {
-                    parallel generateTestTasks(testDllMap)
+        // execute all tests
+        dir(testsResultPath) {
+            parallel generateTestTasks(testDllMap)
 
-                    //publish test results
-                    mstest testResultsFile:"**/*.trx"
-                }
-            }
-        } 
+            //publish test results
+            mstest testResultsFile:"**/*.trx"
+        }
     }
 }

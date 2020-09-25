@@ -4,11 +4,9 @@ void call() {
             NODE_PATH = "${env.WORKSPACE}\\Ubigreen.PerformanceAnalyser.FullWeb\\node_modules"
             gulp = "${env.WORKSPACE}\\Ubigreen.PerformanceAnalyser.FullWeb\\node_modules\\gulp\\bin\\gulp.js"
         }
-        steps {
-            dir("${env.WORKSPACE}/Ubigreen.PerformanceAnalyser.FullWeb") {
-                //remove readonly on package*.json
-                bat "attrib -r package.json && attrib -r package-lock.json && npm i"
-            }
+        dir("${env.WORKSPACE}/Ubigreen.PerformanceAnalyser.FullWeb") {
+            //remove readonly on package*.json
+            bat "attrib -r package.json && attrib -r package-lock.json && npm i"
         }
         post {
             always {
