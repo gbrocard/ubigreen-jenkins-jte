@@ -5,11 +5,6 @@ void call() {
             retry(1)
         }
 
-        environment {
-            PROJECT = '$/UbigreenProject/UbigreenPerformance'
-            TFS_URL = 'http://tls-ubi-tfs:8080/tfs/UbigreenCollection'
-        }
-
         checkout([
             $class: 'TeamFoundationServerScm', 
             projectPath: '$/UbigreenProject/UbigreenPerformance',
