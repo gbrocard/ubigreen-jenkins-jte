@@ -1,4 +1,4 @@
-@AfterStep({context.status.equals("FAILURE")})
+@AfterStep({println(context)})
 void call(context) {
     def emailSubject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} - ${context.status}!"
     def emailBody = "Check console output at ${env.BUILD_URL} to view the results"
