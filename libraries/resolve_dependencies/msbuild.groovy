@@ -1,3 +1,4 @@
+@BeforeStep({context.step.equals("build")})
 void call() {
     String sources = config.nugetSources.join(' -sources=')
     String nugetPath = config.nugetPath

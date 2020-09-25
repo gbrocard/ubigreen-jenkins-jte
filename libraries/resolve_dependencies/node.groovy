@@ -1,3 +1,4 @@
+@BeforeStep({context.step.equals("build")})
 void call() {
     stage('Resolve dependencies: Node') {
         environment {

@@ -10,4 +10,5 @@ libraries {
     }
     node
     notification
+    resolve_dependencies
 }
