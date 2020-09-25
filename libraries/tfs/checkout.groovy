@@ -11,7 +11,8 @@ void call() {
             credentialsConfigurer: [$class: 'AutomaticCredentialsConfigurer'],
             serverUrl: 'http://tls-ubi-tfs:8080/tfs/UbigreenCollection', 
             useOverwrite: true,
-            workspaceName: "Hudson-${env.JOB_NAME}-${NODE_NAME}"
+            workspaceName: "Hudson-test-test"
+            // workspaceName: "Hudson-${env.JOB_NAME}-${NODE_NAME}"
         ])
     }
 }
