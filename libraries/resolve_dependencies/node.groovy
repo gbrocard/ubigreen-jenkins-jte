@@ -7,6 +7,7 @@ void call(context, closure) {
         }
         post {
             always {
+                print(env.WORKSPACE)
                 dir("${env.WORKSPACE}/Ubigreen.PerformanceAnalyser.FullWeb") {
                     //add back readonly on package*.json
                     bat "attrib +r package.json && attrib +r package-lock.json"
