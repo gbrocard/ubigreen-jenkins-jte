@@ -1,5 +1,5 @@
 @BeforeStep({ context.step.equals("build") })
-void call(context) {
+void call(context, closure) {
     stage('Resolve dependencies: Node') {
         dir("${env.WORKSPACE}/Ubigreen.PerformanceAnalyser.FullWeb") {
             //remove readonly on package*.json
