@@ -1,3 +1,5 @@
+allow_scm_jenkinsfile = true 
+
 libraries {
     merge = true
     tfs
@@ -14,5 +16,3 @@ libraries {
     // node
     notification
 }
-
-allow_scm_jenkinsfile = true 
