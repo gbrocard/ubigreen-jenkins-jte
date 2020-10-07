@@ -1,4 +1,4 @@
-void call() {
+void call(linkedHashMap) {
     node {
         checkout([
             $class: 'TeamFoundationServerScm', 
