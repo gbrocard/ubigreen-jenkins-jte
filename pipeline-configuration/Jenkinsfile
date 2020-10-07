@@ -1,5 +1,3 @@
-node("slave") {
-    checkout()
-    msbuild()
-    build()
-}
+checkout()
+msbuild()
+build()
