@@ -1,3 +1,4 @@
+@Validate
 void call(context) {
     node {
         stage('Checkout: TFS') {
