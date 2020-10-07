@@ -1,3 +1,5 @@
 node ("slave") {
+    agent any
+    checkout()
     build()
 }

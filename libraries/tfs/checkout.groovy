@@ -1,4 +1,3 @@
-@Init
 void call() {
     stage('Checkout: TFS') {
         options {
