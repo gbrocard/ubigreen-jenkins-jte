@@ -6,7 +6,6 @@ libraries {
         project = "${env.WORKSPACE}\\UbigreenPerformance.sln"
     }
     msbuild {
-        
         buildConfiguration = "Release"
         testsPath = "${env.WORKSPACE}\\Tests"
         testsResultPath = "${env.WORKSPACE}\\TestResults\\Jenkins\\${env.BUILD_TAG}"
