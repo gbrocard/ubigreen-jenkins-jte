@@ -1,4 +1,4 @@
-@Validate
+@Init
 void call(context) {
     node {
         checkout([
