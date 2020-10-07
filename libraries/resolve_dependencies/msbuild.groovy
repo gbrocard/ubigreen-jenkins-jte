@@ -1,5 +1,4 @@
-@BeforeStep({ context.step.equals("build") })
-void call(context) {
+void call() {
     print("test")
     def sources = config.nugetSources.join(' -sources=')
     def nugetPath = config.nugetPath    

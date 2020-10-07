@@ -1,4 +1,5 @@
 node("slave") {
     checkout()
+    msbuild()
     build()
 }

@@ -1,7 +1,4 @@
-@BeforeStep({ context.step.equals("build") })
-void call(context, closure) {
-    agent {label 'dependencies'}
-
+void call() {
     print(env.WORKSPACE)
     stage('Resolve dependencies: Node') {
         dir("${env.WORKSPACE}/Ubigreen.PerformanceAnalyser.FullWeb") {
