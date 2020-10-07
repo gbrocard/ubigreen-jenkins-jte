@@ -1,5 +1,2 @@
-node ("slave") {
-    agent none
-    checkout()
-    build()
-}
+checkout()
+build()
