@@ -1,5 +1,5 @@
 @BeforeStep({ context.step.equals("build") })
-void call(context) {
+void call(context, closure) {
     node("slave") {
         agent {label 'dependencies'}
 
