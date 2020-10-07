@@ -1,5 +1,6 @@
 void call(linkedHashMap) {
-    node {
+    node ("slave") {
+        agent { label "checkout"}
         checkout([
             $class: 'TeamFoundationServerScm', 
             projectPath: '$/UbigreenProject/UbigreenPerformance',
