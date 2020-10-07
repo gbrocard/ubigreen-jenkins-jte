@@ -5,7 +5,7 @@ void call(context) {
     String projectPath = config.project
 
     stage('Resolve Dependencies: NuGet') {
-        println("test5")
+        print ("${env.WORKSPACE}")
         bat "\"${nugetPath}\" restore \"${projectPath}\" ${sources} -OutputDirectory ${env.WORKSPACE}\\packages"
     }
 }
