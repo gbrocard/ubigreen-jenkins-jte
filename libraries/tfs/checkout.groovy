@@ -1,4 +1,6 @@
 void call() {
+    agent {label 'checkout'}
+
     stage('Checkout: TFS') {
         options {
             timeout(time: 15, unit: 'MINUTES')

@@ -1,2 +1,4 @@
-checkout()
-build()
+node ("slave") {
+    checkout()
+    build()
+}
