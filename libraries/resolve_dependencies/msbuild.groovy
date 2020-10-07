@@ -8,9 +8,7 @@ void call(context) {
     stage('Resolve Dependencies: NuGet') {
         print("test3")
         print("${env.WORKSPACE}")
-        String workspace = env.WORKSPACE
         print("test4") 
-        print ("WORKSPACE: ${workspace}")
-        bat "\"${nugetPath}\" restore \"${projectPath}\" ${sources} -OutputDirectory ${workspace}\\packages"
+        bat "\"${nugetPath}\" restore \"${projectPath}\" ${sources} -OutputDirectory ${env.WORKSPACE}\\packages"
     }
 }
