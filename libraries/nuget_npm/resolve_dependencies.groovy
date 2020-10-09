@@ -5,7 +5,7 @@ void call() {
     stage('npm: Resolve dependencies') {
         dir("Ubigreen.PerformanceAnalyser.FullWeb") {
             //remove readonly on package*.json
-            bat (script: "npm i", returnStdout: true)
+            bat (script: "attrib -r package.json && attrib -r package-lock.json && npm i", returnStdout: true)
         }
     }
 }
