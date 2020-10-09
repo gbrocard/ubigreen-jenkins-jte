@@ -7,7 +7,7 @@ void call(context) {
             credentialsConfigurer: [$class: 'AutomaticCredentialsConfigurer'],
             serverUrl: 'http://tls-ubi-tfs:8080/tfs/UbigreenCollection', 
             useOverwrite: true,
-            workspaceName: "Hudson-${JOB_NAME}-${NODE_NAME}"
+            workspaceName: "Hudson-${env.JOB_NAME}-${env.NODE_NAME}"
         ])
     }
 }
