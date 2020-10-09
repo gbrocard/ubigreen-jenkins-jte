@@ -1,4 +1,4 @@
-@Notify({ context.currentBuild.equals('FAILURE') })
+@Notify({ context.status.equals('FAILURE') })
 void call(context) {
-    print("email")
+    print("slack")
 }
