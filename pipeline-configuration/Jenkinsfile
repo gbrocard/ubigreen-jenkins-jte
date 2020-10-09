@@ -1,4 +1,4 @@
 node {
     vcs_checkout()
-    msbuild()
+    // resolve_dependencies()
 }
