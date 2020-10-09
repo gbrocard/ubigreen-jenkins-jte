@@ -1,3 +1,3 @@
 node {
-    vcs_checkout()
+    resolve_dependencies()
 }

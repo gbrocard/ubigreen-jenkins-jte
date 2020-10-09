@@ -1,3 +1,4 @@
+@Init
 void call() {
     checkout([
         $class: 'TeamFoundationServerScm', 
