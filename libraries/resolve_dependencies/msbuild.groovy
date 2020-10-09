@@ -1,4 +1,4 @@
-void call() {
+void call(context) {
     print("test")
     def sources = config.nugetSources.join(' -sources=')
     def nugetPath = config.nugetPath    
