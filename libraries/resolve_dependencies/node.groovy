@@ -1,4 +1,4 @@
-void call() {
+void call(context) {
     print(env.WORKSPACE)
     stage('Resolve dependencies: Node') {
         dir("${env.WORKSPACE}/Ubigreen.PerformanceAnalyser.FullWeb") {
