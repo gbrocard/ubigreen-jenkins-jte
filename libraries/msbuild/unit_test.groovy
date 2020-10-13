@@ -1,9 +1,10 @@
 void call() {
     stage("MSBuild: Unit tests") {
         def allTestsNames = bat(script: "dir /B \"${config.TESTS_PATH}\"", returnStdout: true).split("\n")
+        print(allTestsNames)
+
         //map the projects name with their corresponding DLL
         def testDllMap = [:]
-        print(allTestsNames)
         for(test in allTestsNames) {
             def testName = test.trim(); //remove carriage return
             def dllLocation = "${config.TESTS_PATH}\\${testName}\\bin\\${config.buildConfiguration}\\${testName}.dll"
