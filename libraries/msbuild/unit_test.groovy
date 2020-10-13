@@ -3,6 +3,7 @@ void call() {
         def allTestsNames = bat(script: "dir /B \"${config.TESTS_PATH}\"", returnStdout: true).split("\n")
         //map the projects name with their corresponding DLL
         def testDllMap = [:]
+        print(allTestsNames)
         for(test in allTestsNames) {
             def testName = test.trim(); //remove carriage return
             def dllLocation = "${config.TESTS_PATH}\\${testName}\\bin\\${config.buildConfiguration}\\${testName}.dll"
@@ -19,10 +20,10 @@ void call() {
 def generateTestSingleTask(mstest, testDll, testName) {
     return {
         try {
-            echo "Launching ${testName} tests..."
+            print("Launching ${testName} tests...")
             bat("\"${mstest}\" /nologo /testcontainer:${testDll} /resultsfile:${config.RESULTS_PATH}\\${testName}Results.trx")
         } catch (Exception e) {
-            echo e.getMessage()
+            print(e.getMessage())
         }
     }
 }
