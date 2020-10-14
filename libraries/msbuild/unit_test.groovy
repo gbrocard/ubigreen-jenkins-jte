@@ -14,7 +14,7 @@ void call() {
         
         // execute all tests
         dir(config.RESULTS_PATH) {
-            parallel generateTestTasks(testDllMap).execute()
+            parallel generateTestTasks(testDllMap)
         }
     }
 }
