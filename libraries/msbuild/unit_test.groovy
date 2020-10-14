@@ -1,12 +1,8 @@
 void call() {
     stage("MSBuild: Unit tests") {
-        print(env)
-        env.each { test ->
-            print("${test.key}: ${test.value}")
-        }
         def allTestsNames = bat(script: "dir /B \"%WORKSPACE%\\${config.TESTS_PATH}\"", returnStdout: true).split("\n")
         def workspace = pwd()
-
+        print("buildtag:${env.BUILD_TAG}")
         //map the projects name with their corresponding DLL
         def testDllMap = [:]
         for(test in allTestsNames) {
