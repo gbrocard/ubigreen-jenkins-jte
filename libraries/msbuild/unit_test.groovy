@@ -24,7 +24,7 @@ def generateTestSingleTask(mstest, testDll, testName) {
     return {
         try {
             print("Launching ${testName} tests...")
-            bat("\"${mstest}\" /nologo /testcontainer:${testDll} /resultsfile:${config.RESULTS_PATH}\\${testName}Results.trx")
+            bat("\"${mstest}\" /nologo /testcontainer:${testDll} /resultsfile:${env.WORKSPACE}\\${config.RESULTS_PATH}\\${testName}Results.trx")
         } catch (Exception e) {
             print(e.getMessage())
         }
