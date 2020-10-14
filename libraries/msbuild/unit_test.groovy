@@ -40,6 +40,7 @@ def generateTestTasks(testDllMap) {
     
         def dllExists = fileExists(testDll)
         if (dllExists) {
+            print("exist")
             testTasksMap[testName] = generateTestSingleTask(mstest, testDll, testName)
         }
         print(testName)
