@@ -1,6 +1,7 @@
 node {
+    unit_test()
+
     vcs_checkout()
     resolve_dependencies()
     build()
-    unit_test()
 }
