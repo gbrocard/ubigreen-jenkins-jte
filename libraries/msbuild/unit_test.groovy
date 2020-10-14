@@ -13,6 +13,7 @@ void call() {
         }
         
         // execute all tests
+        config.RESULTS_PATH = "${config.RESULSTS_PATH}\\${env.BUILD_TAG}" // result path ends with build tag
         dir(config.RESULTS_PATH) {
             parallel generateTestTasks(testDllMap)
         }
