@@ -2,7 +2,7 @@ void call() {
     stage("MSBuild: Unit tests") {
         def allTestsNames = bat(script: "dir /B \"%WORKSPACE%\\${config.TESTS_PATH}\"", returnStdout: true).split("\n")
         def workspace = pwd()
-        print("buildtag:${env.BUILD_TAG}")
+
         //map the projects name with their corresponding DLL
         def testDllMap = [:]
         for(test in allTestsNames) {
@@ -13,7 +13,7 @@ void call() {
         }
         
         // execute all tests
-        config.RESULTS_PATH = "${config.RESULSTS_PATH}\\${env.BUILD_TAG}" // result path ends with build tag
+        config.RESULTS_PATH = "${config.RESULTS_PATH}\\${env.BUILD_TAG}" // result path ends with build tag
         dir(config.RESULTS_PATH) {
             parallel generateTestTasks(testDllMap)
         }
