@@ -5,9 +5,10 @@ void call() {
         //map the projects name with their corresponding DLL
         def testDllMap = [:]
         for(test in allTestsNames) {
-            print(test)
             def testName = test.trim(); //remove carriage return
             def dllLocation = "%WORKSPACE%\\${config.TESTS_PATH}\\${testName}\\bin\\${config.buildConfiguration}\\${testName}.dll"
+            print(dllLocation)
+
             testDllMap[testName] = dllLocation
         }
         
