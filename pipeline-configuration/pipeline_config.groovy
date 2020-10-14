@@ -7,8 +7,8 @@ libraries {
     }
     msbuild {
         MSBUILD_EXE = "C:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\MSBuild.exe"
-        TESTS_PATH = "%WORKSPACE%\\Tests"
-        RESULTS_PATH = "%WORKSPACE%\\TestResults\\Jenkins\\%BUILD_TAG%"
+        TESTS_PATH = "Tests"
+        RESULTS_PATH = "TestResults\\Jenkins\\%BUILD_TAG%"
         buildConfiguration = "Release"
     }
     notification
