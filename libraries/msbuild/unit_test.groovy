@@ -1,6 +1,6 @@
 void call() {
     stage("MSBuild: Unit tests") {
-
+        print(env)
         env.each { test ->
             print("${test.key}: ${test.value}")
         }
