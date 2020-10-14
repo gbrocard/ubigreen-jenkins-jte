@@ -8,13 +8,13 @@ void call() {
         for(test in allTestsNames) {
             def testName = test.trim(); //remove carriage return
             def dllLocation = "${workspace}\\${config.TESTS_PATH}\\${testName}\\bin\\${config.buildConfiguration}\\${testName}.dll"
-            print(dllLocation)
+
             testDllMap[testName] = dllLocation
         }
         
         // execute all tests
-        dir(config.RESULTS_LOCATION) {
-            parallel generateTestTasks(testDllMap)
+        dir(config.RESULTS_PATH) {
+            generateTestTasks(testDllMap).execute()
         }
     }
 }
