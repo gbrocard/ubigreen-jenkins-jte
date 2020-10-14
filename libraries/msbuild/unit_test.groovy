@@ -13,10 +13,8 @@ void call() {
         }
         
         // execute all tests
-        print("nok")
         dir(config.RESULTS_PATH) {
-            print("ok")
-            generateTestTasks(testDllMap).execute()
+            parallel generateTestTasks(testDllMap).execute()
         }
     }
 }
@@ -42,11 +40,8 @@ def generateTestTasks(testDllMap) {
     
         def dllExists = fileExists(testDll)
         if (dllExists) {
-            print("exist")
             testTasksMap[testName] = generateTestSingleTask(mstest, testDll, testName)
         }
-        print(testName)
-        print(testDll)
     }
     return testTasksMap;
 }
