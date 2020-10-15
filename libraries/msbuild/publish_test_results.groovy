@@ -4,7 +4,9 @@ void call(context) {
         mstest testResultsFile:"**/*.trx"
 
         //reset test results
-        def workspace = pwd(); 
-        deleteDir("${workspace}\\TestResults\\Jenkins")
+        dir ('${WORKSPACE}\\TestResults\\Jenkins') {
+            print("Deleting ${pwd()}...")
+            deleteDir()
+        }
     }
 }
