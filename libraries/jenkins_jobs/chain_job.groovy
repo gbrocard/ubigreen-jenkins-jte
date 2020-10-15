@@ -1,9 +1,7 @@
-@CleanUp({ currentBuild.result == 'SUCCESS' })
+@CleanUp({ currentBuild.currentResult == 'SUCCESS' })
 void call(context) {
-    stage('Job: ' + config.jobName) {
-        String workspace = pwd()
-        print("TEST WORKSPACE ${workspace}")
+    def workspace = pwd()
+    print("TEST WORKSPACE ${workspace}")
 
-        build wait: false, job: config.jobName, parameters: [string(name: 'upstreamWorkspace', value: workspace)]
-    }
+    build wait: false, job: config.jobName, parameters: [string(name: 'upstreamWorkspace', value: workspace)]
 }
