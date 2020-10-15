@@ -1,5 +1,4 @@
-@Init
-void call(context) {
+void call() {
     stage("TFS: Checkout") {
         checkout([
             $class: 'TeamFoundationServerScm', 
