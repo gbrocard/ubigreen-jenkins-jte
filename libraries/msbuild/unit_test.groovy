@@ -1,6 +1,6 @@
 void call() {
     stage("MSBuild: Unit tests") {
-        ws('${params.upstreamWorkspace}') {
+        ws(params.upstreamWorkspace) {
             def allTestsNames = bat(script: "dir /B \"%WORKSPACE%\\${config.TESTS_PATH}\"", returnStdout: true).split("\n")
             def workspace = pwd()
 
