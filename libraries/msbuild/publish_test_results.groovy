@@ -4,6 +4,6 @@ void call(context) {
         mstest testResultsFile:"**/*.trx"
 
         //reset test results
-        deleteDir('${WORKSPACE}\\TestResults\\Jenkins')
+        deleteDir('%WORKSPACE%\\TestResults\\Jenkins')
     }
 }
