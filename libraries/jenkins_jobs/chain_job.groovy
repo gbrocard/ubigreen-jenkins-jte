@@ -1,0 +1,6 @@
+@Notify({ context.step == null && currentBuild.result == 'SUCCESS' })
+void call(context) {
+    stage ("Launchin Job: " + config.jobName) {
+        build wait: false, job: config.jobName, parameters: [string(name: 'upstreamWorkspace', value: '${WORKSPACE}')]
+    }
+}

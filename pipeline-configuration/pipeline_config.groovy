@@ -12,4 +12,7 @@ libraries {
         buildConfiguration = "Release"
     }
     notification
+    jenkins_jobs {
+        jobName = "UbigreenPerformance/UbigreenPerformanceUnitTests"
+    }
 }
