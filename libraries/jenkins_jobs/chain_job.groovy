@@ -1,4 +1,9 @@
-@CleanUp({ currentBuild.result == 'SUCCESS' })
+@AfterStep({ context.step == null && currentBuild.result == 'SUCCESS' })
 void call(context) {
-    build wait: false, job: config.jobName, parameters: [string(name: 'upstreamWorkspace', value: pwd())]
+    stage('Job: ' + config.jobName) {
+        String workspace = pwd()
+        print("TEST WORKSPACE ${workspace}")
+
+        build wait: false, job: config.jobName, parameters: [string(name: 'upstreamWorkspace', value: workspace)]
+    }
 }
