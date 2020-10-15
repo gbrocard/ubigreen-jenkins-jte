@@ -1,4 +1,4 @@
-@Cleanup({ currentBuild.result == 'SUCCESS' })
+@CleanUp({ currentBuild.result == 'SUCCESS' })
 void call(context) {
     stage('Job: ' + config.jobName) {
         String workspace = pwd()
