@@ -1,6 +1,5 @@
-@Notify({ context.step == null && currentBuild.currentResult == 'SUCCESS' })
-void call(context) {
+void call(env) {
     withEnv(["WORKSPACE=${pwd()}"]) {
-        build wait: false, job: config.jobName, parameters: [string(name: 'upstreamWorkspace', value: "${WORKSPACE}")]
+        build wait: false, job: env.jobName, parameters: [string(name: 'upstreamWorkspace', value: "${WORKSPACE}")]
     }
 }

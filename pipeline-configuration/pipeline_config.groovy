@@ -1,3 +1,10 @@
+file_copy
+application_environments {
+    tests {
+        jobName = "UbigreenPerformance/UbigreenPerformanceUnitTests"
+    }
+}
+
 libraries {
     tfs
     nuget_npm {
@@ -12,7 +19,5 @@ libraries {
         buildConfiguration = "Release"
     }
     notification
-    jenkins_jobs {
-        jobName = "UbigreenPerformance/UbigreenPerformanceUnitTests"
-    }
+    jenkins_jobs
 }

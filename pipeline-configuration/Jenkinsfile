@@ -2,4 +2,5 @@ node {
     vcs_checkout()
     resolve_dependencies()
     build()
+    chain_job tests
 }
