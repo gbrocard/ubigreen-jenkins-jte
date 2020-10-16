@@ -1,6 +1,6 @@
 node {
     vcs_checkout()
     resolve_dependencies()
-    build()
+    build_project()
     chain_job tests
 }
