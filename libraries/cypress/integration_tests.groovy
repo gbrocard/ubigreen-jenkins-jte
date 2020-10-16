@@ -1,5 +1,7 @@
 void call() {
-    docker.image('cypress/base:10').inside {
-        bat "npm run test"
+    stage("Cypress: Integration tests") {
+        docker.image('cypress/base:10').inside {
+            bat "npm run test"
+        }
     }
 }
