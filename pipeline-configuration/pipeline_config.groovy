@@ -21,3 +21,7 @@ libraries {
     notification
     jenkins_jobs
 }
+
+template_methods {
+    chain_job
+}
