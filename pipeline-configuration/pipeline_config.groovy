@@ -1,4 +1,3 @@
-file_copy
 application_environments {
     tests {
         jobName = "UbigreenPerformance/UbigreenPerformanceUnitTests"

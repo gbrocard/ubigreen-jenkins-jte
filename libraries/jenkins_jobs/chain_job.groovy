@@ -1,7 +1,6 @@
 void call(applicationEnv) {
-    print("ok")
-    print(applicationEnv.jobName)
     withEnv(["WORKSPACE=${pwd()}"]) {
+        print("${WORKSPACE}")
         build wait: false, job: applicationEnv.jobName, parameters: [string(name: 'upstreamWorkspace', value: "${WORKSPACE}")]
     }
 }
