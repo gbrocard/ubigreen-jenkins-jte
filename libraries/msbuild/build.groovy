@@ -5,5 +5,5 @@ void call() {
 }
 
 void call(LinkedHashMap m) {
-    print()
+    print("")
 }
