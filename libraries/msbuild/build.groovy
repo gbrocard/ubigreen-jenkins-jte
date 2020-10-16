@@ -3,3 +3,7 @@ void call() {
         bat "\"${config.MSBUILD_EXE}\" %WORKSPACE%\\UbigreenPerformance.sln /p:Configuration=Release /p:WarningLevel=0 /m"
     }
 }
+
+void call(LinkedHashMap m) {
+    print()
+}
