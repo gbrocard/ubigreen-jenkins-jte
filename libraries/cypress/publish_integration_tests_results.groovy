@@ -4,4 +4,8 @@ void call(context) {
     dir("Ubigreen.PerformanceAnalyser.FullWeb/cypress") {
         junit "results/**/*.xml"
     }
+    
+    dir("Ubigreen.PerformanceAnalyser.FullWeb/cypress/results"){
+        deleteDir()
+    }
 }
