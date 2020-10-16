@@ -1,6 +1,6 @@
 void call() {
     stage("Cypress: Integration tests") {
-        dir (params.projectPath) {
+        dir (config.projectPath) {
             print("${pwd()}")
             bat "npm run test"
         }
