@@ -3,7 +3,7 @@ void call() {
         dir (config.projectPath) {
             print("${pwd()}")
             try {
-                bat "npx cypress run"
+                bat "npx cypress run --reporter junit"
             } catch (Exception e) {
                 print(e.getMessage())
             }
