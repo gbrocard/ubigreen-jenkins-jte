@@ -1,3 +1,3 @@
 void call(applicationEnv) {
-    build job: applicationEnv.jobName, parameters: [string(name: 'upstreamWorkspace', value: "${pwd()}")]
+    build wait: false, quietPeriod: 5, job: applicationEnv.jobName, parameters: [string(name: 'upstreamWorkspace', value: "${pwd()}")]
 }
