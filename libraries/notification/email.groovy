@@ -1,5 +1,5 @@
 //only executes at the end of the pipline and if in failure && currentBuild.result == 'FAILURE' 
-@Notify({ context.step == "checkout" })
+@Notify({ context.step == null })
 void call(context) {
     def emailSubject = "${JOB_NAME} - Build #${BUILD_NUMBER} - ${currentBuild.currentResult}!"
     def emailBody = "Check console output at ${BUILD_URL} to view the results"
