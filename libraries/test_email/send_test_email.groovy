@@ -36,6 +36,9 @@ def isRegression() {
     def currentBuildFailedTestNumber = currentBuild.rawBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailCount()
     def currentBuildFailedTests =  currentBuild.rawBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailedTests()
     
+    print("Previous nb : ${previousBuildFailedTestNumber} build: ${previousBuild.number}")
+    print("Current nb : ${currentBuildFailedTestNumber}")
+
     //si on a + de tests en failure ou si les tests en failure ont changés
     return (currentBuildFailedTestNumber > previousBuildFailedTestNumber || !(previousBuildFailedTests.equals(currentBuildFailedTests)))
 }
