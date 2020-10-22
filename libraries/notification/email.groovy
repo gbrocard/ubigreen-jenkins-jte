@@ -1,6 +1,6 @@
 //only executes at the end of the pipline and if in failure
 @Notify({ context.step == null })
-void call() {
+void call(context) {
     def jobName = "${JOB_NAME}"
     def isTestJob = jobName.toLowerCase().contains("test")
 
