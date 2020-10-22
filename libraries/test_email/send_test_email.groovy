@@ -11,8 +11,12 @@ void call() {
         def emailSubject = "Tests regression on ${JOB_NAME} - Build #${BUILD_NUMBER}!"
         def emailBody = "Check console output at ${BUILD_URL} to view the results"
 
+        def previousBuild = currentBuild.getPreviousSuccessfulBuild()
+        if (previousBuild == null) return;
+
         def previousBuildFailedTestNumber = currentBuild.getPreviousSuccessfulBuild()?.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailCount()
         def previousBuildFailedTests = currentBuild.getPreviousSuccessfulBuild()?.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailedTests()
+        
         def currentBuildFailedTestNumber = currentBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailCount()
         def currentBuildFailedTests =  currentBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailedTests()
         
