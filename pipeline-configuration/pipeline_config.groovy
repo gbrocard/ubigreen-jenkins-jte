@@ -14,6 +14,7 @@ libraries {
         TESTS_PATH = "Tests"
         RESULTS_PATH = "TestResults\\Jenkins"
         buildConfiguration = "Release"
+        projectPath = "UbigreenPerformance.sln"
     }
     notification
     jenkins_jobs
