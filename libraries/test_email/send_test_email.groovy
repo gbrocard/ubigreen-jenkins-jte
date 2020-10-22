@@ -26,6 +26,8 @@ void call() {
         //si on a + de tests en failure ou si les tests en failure ont changés
         if (currentBuildFailedTestNumber > previousBuildFailedTestNumber || !(previousBuildFailedTests.equals(currentBuildFailedTests))) {
             print("REGRESSION !")
+        } else {
+            print("no regression")
         }
         // emailext attachLog: true, body: emailBody, recipientProviders: [[$class: 'FailingTestSuspectsRecipientProvider']], subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
     } else {
