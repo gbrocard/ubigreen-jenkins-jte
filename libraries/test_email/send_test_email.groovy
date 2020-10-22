@@ -1,5 +1,5 @@
 @AfterStep({ context.step == "unit_test" })
-void call() {
+void call(context) {
     def jobName = "${JOB_NAME}"
     def isTestJob = jobName.toLowerCase().contains("test")
 
