@@ -11,10 +11,10 @@ void call() {
         def emailSubject = "Tests regression on ${JOB_NAME} - Build #${BUILD_NUMBER}!"
         def emailBody = "Check console output at ${BUILD_URL} to view the results"
 
-        def previousBuildFailedTestNumber = currentBuild.getPreviousSuccessfulBuild()?.getAction(hudson.tasks.junit.TestResultAction.class).getFailCount()
-        def previousBuildFailedTests = currentBuild.getPreviousSuccessfulBuild()?.getAction(hudson.tasks.junit.TestResultAction.class).getFailedTests()
-        def currentBuildFailedTestNumber = currentBuild.getAction(hudson.tasks.junit.TestResultAction.class).getFailCount()
-        def currentBuildFailedTests =  currentBuild.getAction(hudson.tasks.junit.TestResultAction.class).getFailedTests()
+        def previousBuildFailedTestNumber = currentBuild.getPreviousSuccessfulBuild()?.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailCount()
+        def previousBuildFailedTests = currentBuild.getPreviousSuccessfulBuild()?.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailedTests()
+        def currentBuildFailedTestNumber = currentBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailCount()
+        def currentBuildFailedTests =  currentBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailedTests()
         
         //si on a + de tests en failure ou si les tests en failure ont changés
         if (currentBuildFailedTestNumber > previousBuildFailedTestNumber || !(previousBuildFailedTests.equals(currentBuildFailedTests))) {
