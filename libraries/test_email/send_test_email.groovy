@@ -11,20 +11,7 @@ void call() {
         def emailSubject = "Tests regression on ${JOB_NAME} - Build #${BUILD_NUMBER}!"
         def emailBody = "Check console output at ${BUILD_URL} to view the results"
 
-        def previousBuild = currentBuild.getPreviousNotFailedBuild()
-        if (previousBuild == null) {
-            print("No previous successfull or unstable build")
-            return;
-        } 
-
-        def previousBuildFailedTestNumber = previousBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailCount()
-        def previousBuildFailedTests = previousBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailedTests()
-        
-        def currentBuildFailedTestNumber = currentBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailCount()
-        def currentBuildFailedTests =  currentBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailedTests()
-        
-        //si on a + de tests en failure ou si les tests en failure ont changés
-        if (currentBuildFailedTestNumber > previousBuildFailedTestNumber || !(previousBuildFailedTests.equals(currentBuildFailedTests))) {
+        if (isRegression()) {
             print("REGRESSION !")
         } else {
             print("no regression")
@@ -33,4 +20,22 @@ void call() {
     } else {
         print ("No email to send")
     }
+}
+
+@NonCPS
+def isRegression() {
+    def previousBuild = currentBuild.getPreviousNotFailedBuild()
+    if (previousBuild == null) {
+        print("No previous successfull or unstable build")
+        return false;
+    } 
+
+    def previousBuildFailedTestNumber = previousBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailCount()
+    def previousBuildFailedTests = previousBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailedTests()
+    
+    def currentBuildFailedTestNumber = currentBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailCount()
+    def currentBuildFailedTests =  currentBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailedTests()
+    
+    //si on a + de tests en failure ou si les tests en failure ont changés
+    return (currentBuildFailedTestNumber > previousBuildFailedTestNumber || !(previousBuildFailedTests.equals(currentBuildFailedTests)))
 }
