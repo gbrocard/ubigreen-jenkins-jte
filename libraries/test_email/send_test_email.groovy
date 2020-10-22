@@ -1,4 +1,4 @@
-@AfterStep({ context.step == "unit_test" })
+@Notify({ context.step == "unit_test" })
 void call(context) {
     def jobName = "${JOB_NAME}"
     def isTestJob = jobName.toLowerCase().contains("test")
