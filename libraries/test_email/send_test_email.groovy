@@ -24,6 +24,8 @@ void call() {
 
 @NonCPS
 def isRegression() {
+    print("Checking for tests regression...")
+
     def previousBuild = currentBuild.rawBuild.getPreviousNotFailedBuild()
     if (previousBuild == null) {
         print("No previous successfull or unstable build")
@@ -39,15 +41,17 @@ def isRegression() {
     print("Previous nb : ${previousBuildFailedTestNumber} build: ${previousBuild.number}")
     print("Current nb : ${currentBuildFailedTestNumber}")
 
-    print("Failed tests are not equal ${previousBuildFailedTests != currentBuildFailedTests}")
-
     //si on a + de tests en failure ou si les tests en failure ont changés
     return (currentBuildFailedTestNumber > previousBuildFailedTestNumber || !testsAreEqual(currentBuildFailedTests, previousBuildFailedTests))
 }
 
+/*
+* Prends les deux listes de tests (courants et précédents)
+* et compare leur nom et message d'erreur pour détecter des changements dans les résultats des tests
+*/
 @NonCPS
 def testsAreEqual(currentTestList, previousTestList) {
-    //currentTestList est inférieur ou égal à previousTestList
+    //taille de currentTestList est toujours inférieure ou égale à previousTestList
     def nbTests = currentTestList.size();
 
     for (int i = 0; i < nbTests; i++) {
@@ -59,7 +63,7 @@ def testsAreEqual(currentTestList, previousTestList) {
             print("ERROR : ${currentBuild.getFullName()} NOT FOUND");
             return false;
         }
-
+        print(currentTest.getErrorDetails())
         // compare error messages
         if (currentTest.getErrorDetails() != previousTest.getErrorDetails()) {
             print("Current error message : ${currentTest.getErrorDetails()}")
