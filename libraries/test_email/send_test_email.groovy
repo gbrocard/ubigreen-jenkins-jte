@@ -11,7 +11,7 @@ void call() {
         def emailSubject = "Tests regression on ${JOB_NAME} - Build #${BUILD_NUMBER}!"
         def emailBody = "Check console output at ${BUILD_URL} to view the results"
 
-        def  = currentBuild.getPreviousNotFailedBuild()
+        def previousBuild = currentBuild.getPreviousNotFailedBuild()
         if (previousBuild == null) {
             print("No previous successfull or unstable build")
             return;
