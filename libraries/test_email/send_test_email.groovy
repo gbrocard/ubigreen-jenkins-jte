@@ -39,7 +39,7 @@ def isRegression() {
     print("Previous nb : ${previousBuildFailedTestNumber} build: ${previousBuild.number}")
     print("Current nb : ${currentBuildFailedTestNumber}")
 
-    print("Failed tests are equal ${!(previousBuildFailedTests.equals(currentBuildFailedTests))}")
+    print("Failed tests are not equal ${previousBuildFailedTests != currentBuildFailedTests}")
 
     //si on a + de tests en failure ou si les tests en failure ont changés
     return (currentBuildFailedTestNumber > previousBuildFailedTestNumber || !(previousBuildFailedTests.equals(currentBuildFailedTests)))
