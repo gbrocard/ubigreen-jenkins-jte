@@ -21,7 +21,6 @@ void call() {
     }
 }
 
-@NonCPS
 def isRegression() {
     print("Checking for tests regression...")
 
@@ -47,7 +46,6 @@ def isRegression() {
 * Prends les deux listes de tests (courants et précédents)
 * et compare leur nom et message d'erreur pour détecter des changements dans les résultats des tests
 */
-@NonCPS
 def testsAreEqual(currentTestList, previousTestList) {
     //taille de currentTestList est toujours inférieure ou égale à previousTestList
     def nbTests = currentTestList.size();
