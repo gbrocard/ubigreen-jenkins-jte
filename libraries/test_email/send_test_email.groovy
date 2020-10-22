@@ -42,7 +42,7 @@ def isRegression() {
     print("Failed tests are not equal ${previousBuildFailedTests != currentBuildFailedTests}")
 
     //si on a + de tests en failure ou si les tests en failure ont changés
-    return (currentBuildFailedTestNumber > previousBuildFailedTestNumber || !testsAreEqual(currentBuildFailedTests, previousBuildFailedTests)))
+    return (currentBuildFailedTestNumber > previousBuildFailedTestNumber || !testsAreEqual(currentBuildFailedTests, previousBuildFailedTests))
 }
 
 @NonCPS
