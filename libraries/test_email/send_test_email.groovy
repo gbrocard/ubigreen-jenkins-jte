@@ -35,12 +35,39 @@ def isRegression() {
     
     def currentBuildFailedTestNumber = currentBuild.rawBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailCount()
     def currentBuildFailedTests =  currentBuild.rawBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailedTests()
-    
+
     print("Previous nb : ${previousBuildFailedTestNumber} build: ${previousBuild.number}")
     print("Current nb : ${currentBuildFailedTestNumber}")
 
     print("Failed tests are not equal ${previousBuildFailedTests != currentBuildFailedTests}")
 
     //si on a + de tests en failure ou si les tests en failure ont changés
-    return (currentBuildFailedTestNumber > previousBuildFailedTestNumber || !(previousBuildFailedTests.equals(currentBuildFailedTests)))
+    return (currentBuildFailedTestNumber > previousBuildFailedTestNumber || !testsAreEqual(currentBuildFailedTests, previousBuildFailedTests)))
+}
+
+@NonCPS
+def testsAreEqual(currentTestList, previousTestList) {
+    //currentTestList est inférieur ou égal à previousTestList
+    def nbTests = currentTestList.size();
+
+    for (int i = 0; i < nbTests; i++) {
+        def currentTest = currentTestList[i];
+        def previousTest = previousTestList.find { it.getFullName() == currentTest.getFullName() };
+
+        // test is not found
+        if (previousTest == null) {
+            print("ERROR : ${currentBuild.getFullName()} NOT FOUND");
+            return false;
+        }
+
+        // compare error messages
+        if (currentTest.getErrorDetails() != previousTest.getErrorDetails()) {
+            print("Current error message : ${currentTest.getErrorDetails()}")
+            print("Previous error message : ${previousTest.getErrorDetails()}")
+
+            return false;
+        }
+    }
+
+    return true;
 }
