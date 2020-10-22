@@ -5,18 +5,16 @@ void call() {
     if (currentBuild.result == 'FAILURE') {
         def emailSubject = "${JOB_NAME} - Build #${BUILD_NUMBER} - ${currentBuild.currentResult}!"
         def emailBody = "Check console output at ${BUILD_URL} to view the results"
-        print("FAILURE")
-        // emailext attachLog: true, body: emailBody, recipientProviders: [[$class: 'CulpritsRecipientProvider'], [$class: 'RequesterRecipientProvider'], [$class: 'DevelopersRecipientProvider']], to: '$DEFAULT_RECIPIENTS', subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
+        emailext attachLog: true, body: emailBody, recipientProviders: [[$class: 'CulpritsRecipientProvider'], [$class: 'RequesterRecipientProvider'], [$class: 'DevelopersRecipientProvider']], to: '$DEFAULT_RECIPIENTS', subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
     } else if (isTestJob) {
         def emailSubject = "Tests regression on ${JOB_NAME} - Build #${BUILD_NUMBER}!"
         def emailBody = "Check console output at ${BUILD_URL} to view the results"
 
         if (isRegression()) {
-            print("REGRESSION !")
+            emailext attachLog: true, body: emailBody, recipientProviders: [[$class: 'FailingTestSuspectsRecipientProvider']], to: '$DEFAULT_RECIPIENTS' subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
         } else {
-            print("no regression")
+            print("No regression found")
         }
-        // emailext attachLog: true, body: emailBody, recipientProviders: [[$class: 'FailingTestSuspectsRecipientProvider']], subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
     } else {
         print ("No email to send")
     }
@@ -28,7 +26,7 @@ def isRegression() {
 
     def previousBuild = currentBuild.rawBuild.getPreviousNotFailedBuild()
     if (previousBuild == null) {
-        print("No previous successfull or unstable build")
+        print("No previous successfull or unstable build was found")
         return false;
     } 
 
@@ -38,8 +36,7 @@ def isRegression() {
     def currentBuildFailedTestNumber = currentBuild.rawBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailCount()
     def currentBuildFailedTests =  currentBuild.rawBuild.getAction(hudson.tasks.junit.TestResultAction.class)?.getFailedTests()
 
-    print("Previous nb : ${previousBuildFailedTestNumber} build: ${previousBuild.number}")
-    print("Current nb : ${currentBuildFailedTestNumber}")
+    print("Comparing tests to build nb ${previousBuild.number}. Previous failed tests : ${previousBuildFailedTestNumber}, current failed tests : ${currentBuildFailedTestNumber}")
 
     //si on a + de tests en failure ou si les tests en failure ont changés
     return (currentBuildFailedTestNumber > previousBuildFailedTestNumber || !testsAreEqual(currentBuildFailedTests, previousBuildFailedTests))
@@ -58,16 +55,17 @@ def testsAreEqual(currentTestList, previousTestList) {
         def currentTest = currentTestList[i];
         def previousTest = previousTestList.find { it.getFullName() == currentTest.getFullName() };
 
-        // test is not found
+        // new test in failure
         if (previousTest == null) {
-            print("ERROR : ${currentBuild.getFullName()} NOT FOUND");
+            print("ERROR : ${currentTest.getFullName()} NOT FOUND");
             return false;
         }
-        print(currentTest.getErrorDetails())
+
         // compare error messages
         if (currentTest.getErrorDetails() != previousTest.getErrorDetails()) {
-            print("Current error message : ${currentTest.getErrorDetails()}")
+            print("----------------------------------------- REGRESSION FOUND -----------------------------------------")
             print("Previous error message : ${previousTest.getErrorDetails()}")
+            print("Current error message : ${currentTest.getErrorDetails()}")
 
             return false;
         }
