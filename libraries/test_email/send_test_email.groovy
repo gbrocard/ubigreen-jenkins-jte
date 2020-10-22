@@ -11,7 +11,7 @@ void call() {
         def emailBody = "Check console output at ${BUILD_URL} to view the results"
 
         if (isRegression()) {
-            emailext attachLog: true, body: emailBody, recipientProviders: [[$class: 'FailingTestSuspectsRecipientProvider']], to: '$DEFAULT_RECIPIENTS' subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
+            emailext attachLog: true, body: emailBody, recipientProviders: [[$class: 'FailingTestSuspectsRecipientProvider']], to: '$DEFAULT_RECIPIENTS', subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
         } else {
             print("No regression found")
         }
