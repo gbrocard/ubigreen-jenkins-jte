@@ -1,8 +1,5 @@
 void call() {
     stage("TFS: Checkout") {
-        print("Reset workspace ${params.resetWorkspace ?: true}")
-        print("Reset workspace ${params.resetWorkspace == null ? true : params.resetWorkspace}")
-
         checkout([
             $class: 'TeamFoundationServerScm', 
             projectPath: '$/UbigreenProject/UbigreenPerformance',
