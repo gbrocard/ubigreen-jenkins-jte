@@ -1,3 +1,9 @@
+properties([
+    parameters([
+        booleanParam(defaultValue: false, description: 'Reset workspace', name: 'Reset workspace')
+    ])
+])
+
 node {
     vcs_checkout()
     resolve_dependencies()
