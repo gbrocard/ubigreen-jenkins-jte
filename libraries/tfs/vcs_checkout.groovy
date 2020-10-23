@@ -1,6 +1,6 @@
 void call() {
     stage("TFS: Checkout") {
-        print("Reset workspace ${!params.resetWorkspace}")
+        print("Reset workspace ${!params.resetWorkspace ?: true}")
 
         checkout([
             $class: 'TeamFoundationServerScm', 
