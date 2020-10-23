@@ -1,6 +1,6 @@
 properties([
     parameters([
-        booleanParam(defaultValue: false, description: 'Reset workspace', name: 'Reset workspace')
+        booleanParam(defaultValue: false, description: 'Reset workspace', name: 'resetWorkspace')
     ])
 ])
 
