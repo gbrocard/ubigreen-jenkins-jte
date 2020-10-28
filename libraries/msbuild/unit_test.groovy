@@ -16,7 +16,11 @@ void call() {
             // execute all tests
             config.RESULTS_PATH = "${config.RESULTS_PATH}\\${env.BUILD_TAG}" // result path ends with build tag
             dir(config.RESULTS_PATH) {
-                parallel generateTestTasks(testDllMap)
+                if (config.executeTestsInParallell) {
+                    parallel generateTestTasks(testDllMap)
+                } else {
+                    generateTestTasks(testDllMap).each { key, value -> value() }
+                }
             }
         }
     }
