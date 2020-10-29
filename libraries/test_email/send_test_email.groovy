@@ -83,7 +83,7 @@ def testsAreEqual(currentTestList, previousTestList) {
 
 @NonCPS
 def getCulprits() {
-    def changeSets = currentBuild.upstreamBuilds.changeSets;
+    def changeSets = currentBuild.upstreamBuilds[0].getChangeSets();
 
     def developersEmail = []
     changeSets.each { it ->
