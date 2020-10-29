@@ -1,7 +1,10 @@
-@Notify({ context.step == "unit_test" })
+//only executes at the end of the pipline and if in failure
+@Notify({ context.step == null })
 void call(context) {
     def jobName = "${JOB_NAME}"
     def isTestJob = jobName.toLowerCase().contains("test")
+
+    // sends an email if the current build is in FAILURE or, if the current build is from a test job, send email on regression
 
     if (currentBuild.result == 'FAILURE') {
         def emailSubject = "${JOB_NAME} - Build #${BUILD_NUMBER} - ${currentBuild.currentResult}!"
@@ -11,9 +14,9 @@ void call(context) {
         def emailSubject = "Tests regression on ${JOB_NAME} - Build #${BUILD_NUMBER}!"
         def emailBody = "Check console output at ${BUILD_URL} to view the results"
 
+        developerList = getCulprits()
         if (isRegression()) {
-            print("regression detected")
-            // emailext attachLog: true, body: emailBody, recipientProviders: [[$class: 'FailingTestSuspectsRecipientProvider']], to: '$DEFAULT_RECIPIENTS', subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
+            // emailext attachLog: true, body: emailBody, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'FailingTestSuspectsRecipientProvider']], to: '$DEFAULT_RECIPIENTS', subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
         } else {
             print("No regression found")
         }
@@ -22,6 +25,7 @@ void call(context) {
     }
 }
 
+@NonCPS
 def isRegression() {
     print("Checking for tests regression...")
 
@@ -40,13 +44,16 @@ def isRegression() {
     print("Comparing tests to build nb ${previousBuild.number}. Previous failed tests : ${previousBuildFailedTestNumber}, current failed tests : ${currentBuildFailedTestNumber}")
 
     //si on a + de tests en failure ou si les tests en failure ont changés
-    return (currentBuildFailedTestNumber > previousBuildFailedTestNumber || !testsAreEqual(currentBuildFailedTests, previousBuildFailedTests))
+    moreTestsFailed = currentBuildFailedTestNumber > previousBuildFailedTestNumber
+
+    return moreTestsFailed || (currentBuildFailedTestNumber == previousBuildFailedTestNumber && !testsAreEqual(currentBuildFailedTests, previousBuildFailedTests))
 }
 
 /*
 * Prends les deux listes de tests (courants et précédents)
 * et compare leur nom et message d'erreur pour détecter des changements dans les résultats des tests
 */
+@NonCPS
 def testsAreEqual(currentTestList, previousTestList) {
     //taille de currentTestList est toujours inférieure ou égale à previousTestList
     def nbTests = currentTestList.size();
@@ -72,4 +79,18 @@ def testsAreEqual(currentTestList, previousTestList) {
     }
 
     return true;
+}
+
+@NonCPS
+def getCulprits() {
+    def changeSets = currentBuild.upstreamBuilds.changeSets;
+
+    def developersEmail = []
+    changeSets.each { it ->
+        def devEmail = it.getAuthor().getProperty(Mailer.UserProperty.class).getAddress()
+        developersEmail.add(devEmail)
+    }
+    
+    print(developersEmail)
+    return changeSets
 }
