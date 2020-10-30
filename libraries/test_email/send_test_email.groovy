@@ -1,6 +1,5 @@
 //only executes at the end of the pipline and if in failure
-@Notify({ context.step == null })
-void call(context) {
+void call() {
     def jobName = "${JOB_NAME}"
     def isTestJob = jobName.toLowerCase().contains("test")
 
@@ -91,6 +90,6 @@ def getCulprits() {
         developersEmail.add(devEmail)
     }
     
-    print(developersEmail)
+    print("developersEmail : ${developersEmail}")
     return changeSets
 }
