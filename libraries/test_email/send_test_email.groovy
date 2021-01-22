@@ -82,11 +82,11 @@ def testsAreEqual(currentTestList, previousTestList) {
 
 @NonCPS
 def getCulprits() {
-    def changeSets = currentBuild.upstreamBuilds[0].getChangeSets();
+    def changeSets = currentBuild.upstreamBuilds[0].getChangeSets().items;
     
     def developersEmail = []
     changeSets.each { it ->
-        def devEmail = it.Entry.getAuthor().getProperty(Mailer.UserProperty.class).getAddress()
+        def devEmail = it.getAuthor().getProperty(Mailer.UserProperty.class).getAddress()
         developersEmail.add(devEmail)
     }
     
