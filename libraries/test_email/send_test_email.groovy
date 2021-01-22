@@ -92,6 +92,6 @@ def getCulprits() {
         }
     }
     
-    print("developersEmail : ${developersEmail}")
-    return developersEmail
+    print("developersEmail : ${developersEmail.unique()}")
+    return developersEmail.unique()
 }
