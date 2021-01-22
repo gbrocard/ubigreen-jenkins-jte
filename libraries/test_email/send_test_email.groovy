@@ -15,7 +15,7 @@ void call() {
 
         developerList = getCulprits()
         if (isRegression()) {
-            // emailext attachLog: true, body: emailBody, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'FailingTestSuspectsRecipientProvider']], to: '$DEFAULT_RECIPIENTS', subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
+            // emailext attachLog: true, body: emailBody, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'FailingTestSuspectsRecipientProvider']], to: '$DEFAULT_RECIPIENTS,${values.join(',')}', subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
         } else {
             print("No regression found")
         }
@@ -83,13 +83,13 @@ def testsAreEqual(currentTestList, previousTestList) {
 @NonCPS
 def getCulprits() {
     def changeSets = currentBuild.upstreamBuilds[0].getChangeSets();
-
+    
     def developersEmail = []
     changeSets.each { it ->
-        def devEmail = it.getAuthor().getProperty(Mailer.UserProperty.class).getAddress()
+        def devEmail = it.Entry.getAuthor().getProperty(Mailer.UserProperty.class).getAddress()
         developersEmail.add(devEmail)
     }
     
     print("developersEmail : ${developersEmail}")
-    return changeSets
+    return developersEmail
 }
