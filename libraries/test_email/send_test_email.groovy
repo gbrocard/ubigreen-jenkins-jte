@@ -86,7 +86,8 @@ def getCulprits() {
     
     def developersEmail = []
     changeSets.each { it ->
-        def devEmail = it.getAuthor().getProperty(Mailer.UserProperty.class).getAddress()
+        print(it.author)
+        def devEmail = it.author.getProperty(Mailer.UserProperty.class).getAddress()
         developersEmail.add(devEmail)
     }
     
