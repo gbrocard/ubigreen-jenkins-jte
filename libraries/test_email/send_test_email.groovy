@@ -86,9 +86,10 @@ def getCulprits() {
     
     def developersEmail = []
     changeSets.each { it ->
-        print(it.author)
-        def devEmail = it.author[0].getProperty(hudson.tasks.Mailer.UserProperty.class).getAddress()
-        developersEmail.add(devEmail)
+        it.author.each { a ->
+            def devEmail = a.getProperty(hudson.tasks.Mailer.UserProperty.class).getAddress()
+            developersEmail.add(devEmail)
+        }
     }
     
     print("developersEmail : ${developersEmail}")
