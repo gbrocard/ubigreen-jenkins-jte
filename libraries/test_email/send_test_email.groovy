@@ -12,10 +12,11 @@ void call() {
     } else if (isTestJob) {
         def emailSubject = "Tests regression on ${JOB_NAME} - Build #${BUILD_NUMBER}!"
         def emailBody = "Check console output at ${BUILD_URL} to view the results"
-
-        developerList = getCulprits()
+        
+        def developerList = getCulprits()
+        print("$DEFAULT_RECIPIENTS;${developers.join(';')}")
         if (isRegression()) {
-            // emailext attachLog: true, body: emailBody, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'FailingTestSuspectsRecipientProvider']], to: '$DEFAULT_RECIPIENTS,${values.join(',')}', subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
+            // emailext attachLog: true, body: emailBody, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'FailingTestSuspectsRecipientProvider']], to: '$DEFAULT_RECIPIENTS,${developerList.join(',')}', subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
         } else {
             print("No regression found")
         }
