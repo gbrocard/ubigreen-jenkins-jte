@@ -15,7 +15,8 @@ void call(context) {
         def emailBody = "Check console output at ${BUILD_URL} to view the results"
 
         if (isRegression()) {
-            emailext /*attachLog: true,*/ body: emailBody, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'FailingTestSuspectsRecipientProvider']], to: '$DEFAULT_RECIPIENTS', subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
+            def developers = getCulprits();
+            emailext /*attachLog: true,*/ body: emailBody, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'FailingTestSuspectsRecipientProvider']], to: '$DEFAULT_RECIPIENT;'+"${developers.join(';')}", subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
         } else {
             print("No regression found")
         }
@@ -78,4 +79,23 @@ def testsAreEqual(currentTestList, previousTestList) {
     }
 
     return true;
+}
+
+/*
+* Retourne les email des developpeurs ayant participés aux derniers changesets
+*/
+@NonCPS
+def getCulprits() {
+    def changeSets = currentBuild.upstreamBuilds[0].getChangeSets().items;
+    
+    def developersEmail = []
+    changeSets.each { it ->
+        it.author.each { a ->
+            def devEmail = a.getProperty(hudson.tasks.Mailer.UserProperty.class).getAddress()
+            developersEmail.add(devEmail)
+        }
+    }
+    
+    print("developersEmail : ${developersEmail.unique()}")
+    return developersEmail.unique()
 }
