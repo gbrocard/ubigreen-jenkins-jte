@@ -86,9 +86,13 @@ def testsAreEqual(currentTestList, previousTestList) {
 */
 @NonCPS
 def getCulprits() {
+    def developersEmail = []
+
+    if (currentBuild.upstreamBuilds[0] == null)
+        return developersEmail;
+        
     def changeSets = currentBuild.upstreamBuilds[0].getChangeSets().items;
     
-    def developersEmail = []
     changeSets.each { it ->
         it.author.each { a ->
             def devEmail = a.getProperty(hudson.tasks.Mailer.UserProperty.class).getAddress()
