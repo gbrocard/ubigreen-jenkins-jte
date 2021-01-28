@@ -16,7 +16,7 @@ void call(context) {
 
         if (isRegression()) {
             def developers = getCulprits();
-            emailext /*attachLog: true,*/ body: emailBody, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'FailingTestSuspectsRecipientProvider']], to: '$DEFAULT_RECIPIENT;'+"${developers.join(';')}", subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
+            emailext /*attachLog: true,*/ body: emailBody, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'FailingTestSuspectsRecipientProvider']], to: '$DEFAULT_RECIPIENTS'+";${developers.join(';')}", subject: emailSubject, from: "DevOps <team-solution@ubigreen.com>"
         } else {
             print("No regression found")
         }
